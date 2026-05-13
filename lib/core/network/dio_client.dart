@@ -4,7 +4,7 @@ import 'package:posts_app/core/utils/pref_helpers.dart';
 class DioClient {
   final Dio _dio = Dio(
     BaseOptions(
-      baseUrl: 'https://jsonplaceholder.typicode.com',
+      baseUrl: 'https://dummyjson.com',
       headers: {"Content-Type": "application/json"},
     ),
   );
@@ -14,8 +14,8 @@ class DioClient {
       InterceptorsWrapper(
         onRequest: (options, handler) async {
           final token = await PrefHelper.getToken();
-          if(token != null && token.isNotEmpty && token != 'Guest'){
-          options.headers['Authorization'] = 'Bearer $token';
+          if (token != null && token.isNotEmpty) {
+            options.headers['Authorization'] = 'Bearer $token';
           }
           return handler.next(options);
         },
